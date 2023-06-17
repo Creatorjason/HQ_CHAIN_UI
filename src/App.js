@@ -1,5 +1,5 @@
 
-import SendCoins from "./components/SendCoins"
+import CreateWallet from "./components/CreateWallet"
 import './App.css';
 
 
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
 
-      <SendCoins/>
+      <CreateWallet/>
 
   </div>
   );
