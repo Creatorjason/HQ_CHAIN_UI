@@ -16,7 +16,7 @@ function App() {
     <div className="App">
 
       <Routes>
-      <Route path="/create-wallet" element={<CreateWallet />}/>
+      <Route path="/wallet" element={<WalletDetails />}/>
             
 
           <Route path="/send-coins" element={<SendCoins />}/>
@@ -25,7 +25,7 @@ function App() {
           <Route path="/receive-airdrop" element={<ReceiveAirdrop />}/>
 
 
-          <Route path="/" element={<WalletDetails />}/>
+          <Route path="/" element={<CreateWallet />}/>
 
 
       </Routes>

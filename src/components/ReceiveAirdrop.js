@@ -1,60 +1,162 @@
-import React ,{ useState }from 'react';
+// import React ,{ useState, createContext, useContext }from 'react';
+// import Form from "@rjsf/mui";
+// import Validator from "@rjsf/validator-ajv8";
+// import {  useNavigate } from "react-router-dom";
+// import axios from "axios";
+
+
+// const WalletContext = createContext("wallet address")
+
+// const ReceiveAirdrop = () => {
+//   const [response, setResponse] = useState({});
+//   const [addr, setAddr] = useState("");
+//   const navigate = useNavigate();
+//   const schema = {
+//     title: "TeamQoins Airdrop 💰 ",
+//     type:"object",
+//     required:["wallet_address"],
+//     properties:{
+//       wallet_address:{
+//         title: "Wallet Address",
+//         type : "string",
+//         // default : "Enter your wallet address 💳"
+//       }
+//     }
+//   };
+
+//   const uiSchema = {
+//     'ui:submitButtonOptions': {
+//       submitText: 'Receive Airdrop',
+//     }, 
+//     // 'ui:placeholder': 'http://',
+//   };
+//   let options = {
+//     url :"https://hq-chain.onrender.com/api/airdrop",
+//     method : "POST",
+//     headers : {
+//       Accept : "application/json",
+//       "Content-Type": "application/json"
+//     },
+//     data : {
+//       "wallet_address":""
+//     }
+//   };
+//   const onSubmit = async ({formData})=>{
+//     let address =  formData.wallet_address.trim()
+//     options.data.wallet_address = address
+//     const res = await axios(options)
+//     setResponse(res)
+//     setAddr(address)
+//     if (res.status === 200) {
+//       setTimeout(()=>{
+//         navigate("/wallet")
+//       },4000)
+//     }
+//   }
+  
+  
+
+//   // console.log(addr)
+
+//   return (
+
+//     <WalletContext.Provider value={addr}>
+//     <Form
+//   schema={schema}
+//   validator={Validator}
+//   uiSchema={uiSchema}
+//   onSubmit={onSubmit}
+//     />
+//     <h4>{response.data?.message} {addr}✨</h4>
+//   </WalletContext.Provider>
+
+//   )
+// }
+// export const useWalletContext = () => useContext(WalletContext);
+
+// export default ReceiveAirdrop;
+
+
+
+import React from 'react';
 import Form from "@rjsf/mui";
 import Validator from "@rjsf/validator-ajv8";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {create} from "zustand";
+
+const useWalletStore = create((set) => ({
+  response: {},
+  addr: "",
+  setResponse: (res) => set({ response: res }),
+  setAddr: (address) => set({ addr: address }),
+}));
 
 const ReceiveAirdrop = () => {
-  const [response, setResponse] = useState({})
+  const walletStore = useWalletStore();
+  const navigate = useNavigate();
+
   const schema = {
-    title: "TeamQoins Airdrop 💰 ",
-    type:"object",
-    required:["wallet_address"],
-    properties:{
-      wallet_address:{
+    title: "TeamQoins Airdrop 💰",
+    type: "object",
+    required: ["wallet_address"],
+    properties: {
+      wallet_address: {
         title: "Wallet Address",
-        type : "string",
+        type: "string",
         // default : "Enter your wallet address 💳"
-      }
-    }
+      },
+    },
   };
 
   const uiSchema = {
-    'ui:submitButtonOptions': {
-      submitText: 'Receive Airdrop',
-    }, 
+    "ui:submitButtonOptions": {
+      submitText: "Receive Airdrop",
+    },
     // 'ui:placeholder': 'http://',
   };
+
   let options = {
-    url :"https://hq-chain.onrender.com/api/airdrop",
-    method : "POST",
-    headers : {
-      Accept : "application/json",
-      "Content-Type": "application/json"
+    url: "https://hq-chain.onrender.com/api/airdrop",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    data : {
-      "wallet_address":""
+    data: {
+      wallet_address: "",
+    },
+  };
+
+  const onSubmit = async ({ formData }) => {
+    let address = formData.wallet_address.trim();
+    options.data.wallet_address = address;
+    const res = await axios(options);
+    walletStore.setResponse(res);
+    walletStore.setAddr(address);
+    if (res.status === 200) {
+      setTimeout(() => {
+        navigate("/wallet");
+      }, 4000);
     }
   };
-  const onSubmit = async ({formData})=>{
-    options.data.wallet_address = formData.address.trim()
-    const res = await axios(options)
-    setResponse(res)
-  }
-
-
-
 
   return (
+    // <WalletContext.Provider value={walletStore}>
     <>
-   <Form
-    schema={schema}
-    validator={Validator}
-    uiSchema={uiSchema}
-    onSubmit={onSubmit}
-   />
-   <h4>{response.data?.message}</h4>
+      <Form schema={schema} validator={Validator} uiSchema={uiSchema} onSubmit={onSubmit} />
+      <h4>
+        {walletStore.response.data?.message} {walletStore.addr}✨
+      </h4>
     </>
-  )
-}
 
-export default ReceiveAirdrop
+    // </WalletContext.Provider>
+  );
+};
+
+export const useWalletContext = () => {
+  const walletStore = useWalletStore();
+  return walletStore;
+};
+
+export default ReceiveAirdrop;
