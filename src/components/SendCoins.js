@@ -2,9 +2,11 @@ import React, {useState} from 'react'
 import Form from '@rjsf/mui';
 import validator from '@rjsf/validator-ajv8';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const SendCoins = () => {
+    const navigate = useNavigate();
     const [response, setResponse] = useState({})
     const schema = {
         title:"Rich man, no forget your boy 🤓 💶 💴 💵",
@@ -53,6 +55,11 @@ const SendCoins = () => {
         options.data.amount = Number(formData.amount)
         const res = await axios(options)
         setResponse(res)
+        if (res == 200){
+            setTimeout(()=>{
+                navigate("/wallet")
+            },4000)
+        }
     }  
 
 
