@@ -27,7 +27,7 @@ const CreateWallet = () => {
         options.data.name = formData.name
         const res = await axios(options)
         setResponse(res);
-        if (res.status === 200) {
+        if (res.status === 200 && res.data?.message?.wallet_address?.length === 40) {
           setTimeout(()=>{
             navigate("/receive-airdrop")
           },6000)
@@ -59,7 +59,7 @@ const CreateWallet = () => {
    />
 
    <h1>Wallet Address:</h1>
-   <h3>{response.data?.payload?.wallet_address}</h3>
+   <h3>{response.data?.message?.wallet_address}</h3>
     </>
    
   )

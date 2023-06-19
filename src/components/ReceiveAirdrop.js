@@ -22,7 +22,7 @@ const ReceiveAirdrop = () => {
     'ui:submitButtonOptions': {
       submitText: 'Receive Airdrop',
     }, 
-    'ui:placeholder': 'http://',
+    // 'ui:placeholder': 'http://',
   };
   let options = {
     url :"https://hq-chain.onrender.com/api/airdrop",
@@ -36,7 +36,7 @@ const ReceiveAirdrop = () => {
     }
   };
   const onSubmit = async ({formData})=>{
-    options.data.wallet_address = formData.address
+    options.data.wallet_address = formData.address.trim()
     const res = await axios(options)
     setResponse(res)
   }
