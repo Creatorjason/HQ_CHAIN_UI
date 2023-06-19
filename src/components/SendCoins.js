@@ -55,7 +55,7 @@ const SendCoins = () => {
         options.data.amount = Number(formData.amount)
         const res = await axios(options)
         setResponse(res)
-        if (res == 200){
+        if (res === 200){
             setTimeout(()=>{
                 navigate("/wallet")
             },4000)
