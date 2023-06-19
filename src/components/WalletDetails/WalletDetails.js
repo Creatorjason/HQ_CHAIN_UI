@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import "./WalletDetails.css";
 import { useWalletContext} from '../ReceiveAirdrop';
+import {Link} from "react-router-dom";
 import  axios from "axios";
 
 const WalletDetails = () => {
@@ -34,7 +35,7 @@ const WalletDetails = () => {
       <h4>{balance} TQ</h4>
     <div className="btn-container">
       {/* <div className="button">Generate Wallet</div> */}
-      <div className="button">Send TeamQoins</div>
+      <div className="button"><Link to="/send-coins">Send TeamQoins</Link></div>
     </div>
     </div>
   )

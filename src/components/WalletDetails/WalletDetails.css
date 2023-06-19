@@ -1,8 +1,9 @@
 .wallet-container{
     border: 1px solid black;
+    box-shadow: 2px 2px 3px black;
     height: auto;
     padding: 12px 10px;
-    width: auto;
+    width: 400px;
     border-radius: 20px;
     display: flex;
     justify-content:center;
@@ -18,11 +19,21 @@
 }
 .button{
     border: 0px solid black;
-    background-color: rgb(87, 87, 237);
+    background-color: rgb(46, 129, 231);
+    box-shadow: 2px 2px 3px black;
     padding:  5px ;
     /* height: 2rem; */
     /* width: auto; */
     border-radius: 5px;
-    color:white;
+    /* color:white; */
     text-align: center;
+}
+
+h4{
+    color: rgb(21, 115, 21);
+    font-weight:bold;
+}
+a{
+    text-decoration:none;
+    color: white;
 }
