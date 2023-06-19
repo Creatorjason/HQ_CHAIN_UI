@@ -23,7 +23,7 @@ const WalletDetails = () => {
     }
     // console.log(addr);
     fetchData();
-  }, [options]);
+  }, [addr]);
 
 
   return (
