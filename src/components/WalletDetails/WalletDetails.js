@@ -8,16 +8,15 @@ const WalletDetails = () => {
   const {addr} = useWalletContext();
   const [balance, setBalance] = useState(0)
   console.log(addr)
-  const options = {
-    url: "https://hq-chain.onrender.com/api/wallet/" + addr,
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type":"application/json"
-    }
-
-  }
   useEffect(() => {
+    const options = {
+      url: "https://hq-chain.onrender.com/api/wallet/" + addr,
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type":"application/json"
+      }
+    }
     async function fetchData(){
       const res = await axios(options)
       setBalance(res.data?.message?.account_balance);
