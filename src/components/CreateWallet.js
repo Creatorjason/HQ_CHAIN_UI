@@ -1,11 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Form from '@rjsf/mui';
 import validator from '@rjsf/validator-ajv8';
+// import { createBrowserHistory } from 'history';
+import {  useNavigate } from "react-router-dom";
 import axios from "axios";
-import {useState} from 'react'
+
 
 const CreateWallet = () => {
     const [response, setResponse] = useState({})
+    // const history = createBrowserHistory();
+    const navigate = useNavigate();
+
 
     const options = {
         url : "https://hq-chain.onrender.com/api/wallet",
@@ -22,6 +27,12 @@ const CreateWallet = () => {
         options.data.name = formData.name
         const res = await axios(options)
         setResponse(res);
+        if (res.status === 200) {
+          setTimeout(()=>{
+            navigate("/receive-airdrop")
+          },6000)
+        }
+        // console.log(res)
 
     }
     const schema = {
@@ -29,10 +40,11 @@ const CreateWallet = () => {
         type: 'object',
         required: ['name'],
         properties: {
-          name :{type: "string", title:"Name", default:"Enter thy name chief 😎"}
+          // Add placeholders
+          name :{type: "string", title:"Name", default:""}
         },
       };
-      const formData = {
+      const uiSchema = {
         'ui:submitButtonOptions': {
           submitText: 'Generate Wallet',
         }
@@ -42,12 +54,12 @@ const CreateWallet = () => {
      <Form
         schema={schema}
         validator={validator}
-        uiSchema={formData}
+        uiSchema={uiSchema}
         onSubmit= {onSubmit}
    />
 
    <h1>Wallet Address:</h1>
-   <h3>{response.data?.wallet_address}</h3>
+   <h3>{response.data?.payload?.wallet_address}</h3>
     </>
    
   )

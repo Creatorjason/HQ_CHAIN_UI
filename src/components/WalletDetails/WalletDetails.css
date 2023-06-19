@@ -1,0 +1,26 @@
+.wallet-container{
+    border: 1px solid black;
+    height: auto;
+    padding: 20px 15px;
+    width: 15rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content:center;
+    /* align-items: space-between; */
+    flex-direction: column;
+    
+}
+.btn-container{
+    display: flex;
+    gap: 0.3rem;
+}
+.button{
+    border: 1px solid black;
+    background-color: rgb(87, 87, 237);
+    padding: 4px 2px ;
+    height: 2rem;
+    /* width: auto; */
+    border-radius: 5px;
+    color:white;
+    text-align: center;
+}
