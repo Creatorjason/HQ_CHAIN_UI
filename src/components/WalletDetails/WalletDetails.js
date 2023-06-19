@@ -24,7 +24,7 @@ const WalletDetails = () => {
     }
     // console.log(addr);
     fetchData();
-  }, []);
+  }, [options]);
 
 
   return (
